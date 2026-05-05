@@ -46,7 +46,7 @@ public class UserRepository {
                     .build()
     );
 
-    public static List<User> getAllUsers() {
+    public List<User> getAllUsers() {
         return USERS;
     }
 

@@ -1,30 +1,23 @@
-package com.notification.model;
+package com.notification.dto;
 
-import jakarta.persistence.*;
+import com.notification.model.Category;
+import com.notification.model.Channel;
+import com.notification.model.NotificationStatus;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-@Entity
-public class Notification {
+@Builder
+public class NotificationResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String userName;
-
-    @Enumerated(EnumType.STRING)
     private Category category;
-
-    @Enumerated(EnumType.STRING)
     private Channel channel;
-
     private String message;
-
     private NotificationStatus notificationStatus;
-
     private LocalDateTime timestamp;
 
 }

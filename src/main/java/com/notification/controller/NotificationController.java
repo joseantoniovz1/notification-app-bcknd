@@ -1,19 +1,17 @@
 package com.notification.controller;
 
 import com.notification.dto.NotificationRequest;
+import com.notification.dto.NotificationResponse;
+import com.notification.exception.BadRequestException;
 import com.notification.model.Category;
-import com.notification.model.Channel;
 import com.notification.model.Message;
-import com.notification.model.Notification;
 import com.notification.service.NotificationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
@@ -29,7 +27,7 @@ public class NotificationController {
     public ResponseEntity<String> sendNotification(@RequestBody NotificationRequest notificationRequest) {
         log.info("Sending notification");
         if (notificationRequest.getMessage() == null || notificationRequest.getMessage().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Message cannot be empty");
+            throw new BadRequestException("Message cannot be empty");
         }
 
         Message message = Message.builder()
@@ -42,7 +40,7 @@ public class NotificationController {
     }
 
     @GetMapping("/history")
-    public List<Notification> getAllNotifications() {
+    public List<NotificationResponse> getAllNotifications() {
         log.info("Getting all history");
         return notificationService.getNotifications();
     }
